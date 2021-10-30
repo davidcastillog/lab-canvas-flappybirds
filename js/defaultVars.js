@@ -17,8 +17,10 @@ const audio = new Audio();
 
 // Ejemplo valores heroes
 
+/*
 let heroeDefault = {
-    vida: 3;
-    status: "pequeño","grande","rojo";
+    vida: 3,
+    status: "pequeño","grande","rojo",
 
 }
+*/
