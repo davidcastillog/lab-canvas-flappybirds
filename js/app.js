@@ -1,40 +1,49 @@
-// Van las clases
+// Van a ir mis Clases
 
 class Background {
+    //constructor
     constructor(w,h){
         this.x = 0;
         this.y = 0;
-        this.w = w;
-        this.h = h;
-        this.image = new Image()
-        this.image.src = '../images/bg.png'
-        //this.imgGameOver = new Image();
-        // this.
+        this.width = w;
+        this.height = h;
+        this.image = new Image();
+        this.image.src = "../images/bg.png" // ./ => en este mismo nievel; ../ salte un nivel
+        this.imgGameOver = new Image();
+        this.imgGameOver.src = "https://w7.pngwing.com/pngs/359/749/png-transparent-death-certificate-sword-art-online-gamebanana-died-text-rectangle-logo.png"
     }
 
+    //metodos
     draw(){
-        // Para mover el Background
-        if(this.x < -canvas.witdh){
+        //para hacer que el background se mueva
+        if(this.x < -canvas.width){
             this.x = 0
         }
-        this.x --; // movimiento negativo X <--
-        
-        ctx.drawImage(this.image,this.x,this.y,this.w,this.h);
-        ctx.drawImage(this.image,this.x + this.w,this.y,this.w,this.h);
+        this.x--;
 
+        //dibujar la imagen
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+        ctx.drawImage(
+            this.image,
+            this.x + this.width,
+            this.y,
+            this.width,
+            this.height
+        )
     }
 
     gameOver(){
+        //esto es en texto pls no lo hagan así SOLO ES EJEMPLO!
+        // ctx.font = "80px Arial";
+        // ctx.fillText = ("Te moriste mi rey!",150,100)
 
-        // NO usar Texto
-        ctx.font = '80px Arial';
-        ctx.fillText = ('Te moriste mi rey!',250,200)
+        //imaga para gameOver este si lo pueden hace
+        //ctx.globalAlpha = 0.5
+        ctx.drawImage(this.imgGameOver,300,140,400,400)
 
-        // USAR IMAGENES
-        // ctx.globalAlpha = 0.5;
-       // ctx.drawImage(this.image,this.x + this.w,this.y,this.w,this.h);
     }
 }
+
 
 class Flappy{
     constructor(x,y,w,h){
@@ -48,35 +57,57 @@ class Flappy{
         this.image.src = "../images/flappy.png"
     }
 
+
+    //metodos
     draw(){
-        // validar gravedad
+        //validar gravedad
         this.vy = this.vy + (gravity - this.userPull);
-        
-        // Validamos para que no se salga del canvas
+        //validamos al tramposo del flappy para que no se salga del canvas en -y
         if(this.y <= 0){
             this.userPull = 0;
             this.y = 2;
             this.vy = 2;
         }
 
-        // Modificamos su Y con la gravedad
+        //modificamos su y con la gravedad
+
         if(this.y + this.height < canvas.height){
             this.y += this.vy;
         }
 
-
-        // dibujar
-        ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
-
+        //dibujar
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
     }
 
     collision(item){
-        
+
         return(
-            this.x < item.x + item.width &&
+           this.x < item.x + item.width &&
             this.x + this.width > item.x &&
             this.y < item.y + item.height &&
             this.y + this.height > item.y
         )
+
+    }
+}
+
+
+
+class Pipe{
+    constructor(pos,x,y,h){
+        this.x = x;
+        this.y= y;
+        this.width = 50;
+        this.height= h;
+        this.image = new Image()
+        this.image.src = 
+            pos === "top" 
+            ? "../images/obstacle_top.png" 
+            : "../images/obstacle_bottom.png";
+    }
+
+    draw(){
+        this.x -= 2;
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
     }
 }
