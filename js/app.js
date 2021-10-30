@@ -37,22 +37,37 @@ class Background {
 }
 
 class Flappy{
-    constructor(w,h){
-        this.x = 0;
-        this.y = 0;
-        this.w = w;
-        this.h = h;
-        this.vy = 2 // gravity
-        this.userPull = 0; // gravity
-        this.image = new Image()
-        this.image.src = '../images/flappy.png'
+    constructor(x,y,w,h){
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+        this.vy = 2 //gravity
+        this.userPull= 0;//gravity
+        this.image = new Image();
+        this.image.src = "../images/flappy.png"
     }
 
     draw(){
         // validar gravedad
+        this.vy = this.vy + (gravity - this.userPull);
+        
+        // Validamos para que no se salga del canvas
+        if(this.y <= 0){
+            this.userPull = 0;
+            this.y = 2;
+            this.vy = 2;
+        }
+
+        // Modificamos su Y con la gravedad
+        if(this.y + this.height < canvas.height){
+            this.y += this.vy;
+        }
+
 
         // dibujar
-        ctx.drawImage(this.image,this.x,this.y,this.w,this.h);
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
+
     }
 
     collision(item){

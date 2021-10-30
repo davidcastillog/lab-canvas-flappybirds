@@ -30,4 +30,17 @@ window.onload = function() {
     }
   }
 
+  // Event Listenner
+  addEventListener('keydown',(e) =>{
+    if(e.keyCode === 32){
+      flappy.userPull = 0.3;
+    }
+  })
+
+  addEventListener('keyup',(e) =>{
+    if(e.keyCode === 32){
+      flappy.userPull = 0.3;
+    }
+  })
+
 };
